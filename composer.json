@@ -1,0 +1,32 @@
+{
+    "name": "panlatent/translator",
+    "type": "yii2-extension",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "panlatent\\translator\\": "src/"
+        }
+    },
+    "extra": {
+        "bootstrap": "panaltent\\translator\\Extension"
+    },
+    "authors": [
+        {
+            "name": "panlatent",
+            "email": "panlatent@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "require": {
+        "php": "^8.0.2",
+        "yiisoft/yii2": "*",
+        "symfony/finder": "^7.0"
+    },
+    "config": {
+        "allow-plugins": {
+            "yiisoft/yii2-composer": true,
+            "craftcms/plugin-installer": true
+        }
+    }
+}
