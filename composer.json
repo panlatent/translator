@@ -8,7 +8,7 @@
         }
     },
     "extra": {
-        "bootstrap": "panaltent\\translator\\Extension"
+        "bootstrap": "panlatent\\translator\\Extension"
     },
     "authors": [
         {
