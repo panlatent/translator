@@ -36,7 +36,7 @@ class Extractor extends Component
      */
     public function fromTwigFile(string $path): void
     {
-        $this->parseFile($path, '#(["\'])(?<message>(?:(?!\1).)+?)\1\|t(\((["\'])(?<category>(?:(?!\4).)+?)\4\)|(?![\w\d]))#');
+        $this->parseFile($path, '#(["\'])(?<message>(?:(?!\1).)+?)\1\|t(\((["\'])(?<category>(?:(?!\4).)+?)\4\s*[,)]|(?!\w))#');
     }
 
     public function extract(): array
