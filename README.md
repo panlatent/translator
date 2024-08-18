@@ -23,4 +23,4 @@ Add custom extractor on Poedit.
 
 License
 -------
-The Element Messages is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
+The Translator is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
