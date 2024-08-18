@@ -1,20 +1,30 @@
 <?php
 
-namespace panlatent\translator;
+namespace Panlatent\Translator;
 
-use yii\base\Component;
-
-class Extractor extends Component
+class Extractor
 {
-    public string $defaultCategory = 'site';
+    private string $defaultCategory = 'site';
 
-    public ?string $basePath = null;
-
-    public array $ignoreCategories = [];
-
-    public array $keywords = ['Yii::t', 'Craft::t'];
+    private array $ignoreCategories = [];
 
     private array $nodes = [];
+
+    public function __construct(private readonly ?string $basePath, private readonly array $keywords)
+    {
+    }
+
+    public function setDefaultCategory(string $category): self
+    {
+        $this->defaultCategory = $category;
+        return $this;
+    }
+
+    public function setIgnoreCategories(array $categories): self
+    {
+        $this->ignoreCategories = $categories;
+        return $this;
+    }
 
     /**
      * Parse message sources from PHP code.
@@ -52,7 +62,7 @@ class Extractor extends Component
 
     protected function parseFile(string $path, string $pattern): void
     {
-        foreach (file($path) as $line => $content) {
+        foreach (file($path) as $offset => $content) {
             preg_match_all($pattern, $content, $match);
             foreach ($match['message'] as $key => $message) {
                 $category = $match['category'][$key];
@@ -62,7 +72,7 @@ class Extractor extends Component
                 if ($this->isIgnore($category)) {
                     continue;
                 }
-                $this->nodes[] = new class($category, $message, $path, $line){
+                $this->nodes[] = new class($category, $message, $path, $offset + 1) {
                     public function __construct(public string $category, public string $message, public string $file, public int $line) {}
                 };
             }
@@ -79,7 +89,7 @@ class Extractor extends Component
                 ];
             } elseif (!isset($arr[$node->category][$node->message][$node->file])) {
                 $arr[$node->category][$node->message][$node->file] = [$node->line];
-            } elseif (!in_array($node->line, $arr[$node->category][$node->message][$node->file])) {
+            } elseif (!in_array($node->line, $arr[$node->category][$node->message][$node->file], true)) {
                 $arr[$node->category][$node->message][$node->file][] = $node->line;
             }
         }
@@ -102,6 +112,6 @@ class Extractor extends Component
 
     private function isIgnore(string $category): bool
     {
-        return in_array($category, $this->ignoreCategories);
+        return in_array($category, $this->ignoreCategories, true);
     }
 }

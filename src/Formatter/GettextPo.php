@@ -1,11 +1,10 @@
 <?php
 
-namespace panlatent\translator\formatters;
+namespace Panlatent\Translator\Formatter;
 
 use panlatent\translator\Message;
-use yii\base\Component;
 
-class GettextPo extends Component
+class GettextPo
 {
     /**
      * @param Message[] $messages

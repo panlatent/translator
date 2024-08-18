@@ -1,8 +1,8 @@
 <?php
 
-namespace panlatent\translator;
+namespace Panlatent\Translator;
 
-class Message
+readonly class Message
 {
     public function __construct(public string $category, public string $message, public array $positions)
     {

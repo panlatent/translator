@@ -1,25 +1,48 @@
 Translator
 ===========
 
-Translator is a Yii 2 extension that can extract message strings from PHP source code and Twig templates. 
+Translator is command tools that can extract message strings from PHP source code and Twig templates. 
 It is designed to work with tools like Poedit and supports CraftCMS.
 
 Requirements
 ------------
-+ PHP 8.0.2 or later
-+ Yii2 or CraftCMS
++ PHP 8.2 or later
 
 Installation
 ------------
 
 ```bash
-composer require panlatent/translator --dev
+composer global require panlatent/translator:cli
 ```
 
 Usages
 ------
 
-Add custom extractor on Poedit.
+Add custom extractor on Poedit. 
+
+```bash
+./translator extract %F --output=%o
+```
+
+Add config to `config/app.php`:
+```php
+   'components' => [
+        'i18n' => [
+            'translations' => [
+                'site' => [
+                    'class' => GettextMessageSource::class,
+                    'sourceLanguage' => 'en-US',
+                    'basePath' => '@translations',
+                ],
+                '*' => [
+                    'class' => GettextMessageSource::class,
+                    'sourceLanguage' => 'en-US',
+                    'basePath' => '@translations',
+                ],
+            ]
+        ],
+    ],
+```
 
 License
 -------
